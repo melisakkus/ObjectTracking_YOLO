@@ -6,7 +6,7 @@ import imutils
 from ultralytics import YOLO 
 import numpy as np
 
-video_path="tekvagon.mp4"
+video_path="test_videos\test_persontracking.mp4"
 cap = cv2.VideoCapture(video_path)
 
 model_name = "yolov8n.pt"
@@ -15,7 +15,7 @@ model = YOLO(model_name)
 person_id = 0
 
 # Video kaydetme için ayarlar
-output_path = "output_persontracking.mp4"
+output_path = "output_videos\output_persontracking.mp4"
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 width = 1200
