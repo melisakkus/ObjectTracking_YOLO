@@ -14,6 +14,15 @@ model = YOLO(model_name)
 
 person_id = 0
 
+# Video kaydetme için ayarlar
+output_path = "output_persontracking.mp4"
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+width = 1200
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT) * (width / cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
+out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+
+
 while True:
     ret, frame=cap.read()
     if ret == False:
@@ -34,6 +43,8 @@ while True:
             text = "ID:{} PERSON". format(track_id)
             cv2.putText(frame,text,(x1,y1-5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
+    # Frame'i kaydet
+    out.write(frame)
 
     cv2.imshow("Object Tracking",frame)
 
@@ -41,4 +52,5 @@ while True:
         break
 
 cap.release() 
+out.release()  # Video writer'ı kapat
 cv2.destroyAllWindows()
